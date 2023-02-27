@@ -1,6 +1,7 @@
 import { Grid } from '@mui/material';
 import Box from '@mui/material/Box';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import Drawer from '../component/dashBoard/Drawer';
 import { drawerContent } from '../utils/index';
 function DashBoard() {
@@ -8,6 +9,14 @@ function DashBoard() {
   function displayContent() {
     return drawerContent[isActiveContent].content;
   }
+  const navigate = useNavigate();
+  useEffect(() => {
+    // localStorage.setItem('adminDetails', JSON.stringify(adminDetails));
+    let userDetails = JSON.parse(localStorage.getItem('userDetails'));
+    if (!userDetails) {
+      navigate('/');
+    }
+  }, []);
   return (
     <Box sx={{ display: 'flex' }}>
       <Grid container>
